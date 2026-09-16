@@ -200,30 +200,8 @@
       debug:
         msg: "Port is $Server_Port"
 
-    # community.general with argspec violations (P002/P003)
-    - name: Manage INI file with wrong args
-      community.general.ini_file:
-        dest: /etc/app/settings.ini
-        section: app
-        option: port
-        value: 8080
-        invalid_param: true
-        mode: 644
-
-    # L057 (wrong-module) moved to playbook-l057-wrong-module.yml so this file passes syntax-check.
-    # Valid sysctl usage (ansible.posix) so later tasks get full Ansible/argspec validation:
-    - name: Manage a sysctl value
-      ansible.posix.sysctl:
-        name: net.ipv4.ip_forward
-        value: "1"
-        state: present
-
-    # community.general with wrong types
-    - name: Create a cron job badly
-      community.general.cronvar:
-        name: APP_HOME
-        value: /opt/app
-        invalid_option: true
+    # Collection modules (community.general, ansible.posix, cisco.ios) removed for
+    # no-Galaxy portal demos — see archives/ (not scanned by APME).
 
     # L042: high task count block
     - name: Block with too many tasks
@@ -267,14 +245,6 @@
         name: "{{ item.key }}"
         comment: "{{ item.value.comment }}"
       with_dict: "{{ user_accounts }}"
-
-    # cisco.ios usage for M011 (network module needing upgrade)
-    - name: Configure IOS banner
-      cisco.ios.ios_banner:
-        banner: motd
-        text: "Unauthorized access prohibited"
-        state: present
-      delegate_to: localhost
 
 # Second play: also no name (L003 again). L040 (tabs) is in playbook-l040-tabs.yml.
 - hosts: dbservers

@@ -25,3 +25,23 @@ and secrets-detection rules simultaneously, including:
 ```bash
 apme scan /path/to/terrible-playbook
 ```
+
+### No-Galaxy mode (portal / avoid ~16% collection install)
+
+This clone is configured for **Nilashish-style** demos: no `requirements.yml`
+collections, no collection FQCNs in scanned YAML. Scans should not call
+`ansible-galaxy` via galaxy-proxy.
+
+- Scanned content: `site.yml`, `playbook-l040-tabs.yml`, roles, etc.
+- **Not scanned:** `archives/` (collection-backed examples preserved there)
+
+```bash
+# run-cli.sh only mounts the apme/ directory — target must live inside it
+# (a host symlink to ../terrible-playbook does not resolve in the pod).
+cp -R terrible-playbook apme/terrible-playbook
+cd apme && bash containers/podman/run-cli.sh check -v terrible-playbook
+```
+
+To test collection installs again, restore tasks from
+`archives/collection-tasks-removed-from-site.yml` into `site.yml` and add
+collections to `requirements.yml`.
