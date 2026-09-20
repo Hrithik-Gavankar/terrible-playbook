@@ -1,6 +1,6 @@
 ---
 # L057: Wrong module FQCN — community.general.sysctl does not exist (sysctl is ansible.posix).
-# Isolated so site.yml can pass syntax-check and get full validation.
+# Kept under archives/ (skipped by APME scan file walk) for full-collection demos.
 - hosts: localhost
   tasks:
     - name: Manage a sysctl value (wrong collection)
