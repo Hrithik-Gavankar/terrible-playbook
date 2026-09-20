@@ -1,8 +1,4 @@
 ---
-collections:
-  - name: community.general
-    version: ">=5.0.0"
-#  - name: ansible.posix
-#    version: ">=1.0.0"
-  - name: cisco.ios
-    version: ">=4.0.0"
+# No Galaxy collections — scans should not install collections from Hub/Galaxy.
+# Collection-backed demos: see archives/ (excluded from APME file walk).
+collections: []
