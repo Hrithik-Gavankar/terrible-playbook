@@ -1,8 +1,16 @@
 ---
 # L027: This role has no meta/main.yml
 
-- command: echo "I am a broken role task"
+- name: Echo a message
+  ansible.builtin.command:
+    args:
+      cmd: echo "I am a broken role task"
+  changed_when: false
 
-- name: do something risky in the role
-  shell: rm -rf /tmp/old_data/*
+- name: Remove old data
+  ansible.builtin.shell:
+    cmd: rm -rf /tmp/old_data/*
+  changed_when: false
+  # noqa: R108
+  # Explanation: This task removes old data which requires root privileges.
   become: true
